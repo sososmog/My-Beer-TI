@@ -2,9 +2,13 @@ import { motion } from 'framer-motion';
 
 interface ResultPageProps {
   onRestart: () => void;
+  finalScores: Record<string, number>;
 }
 
-export const ResultPage = ({ onRestart }: ResultPageProps) => {
+export const ResultPage = ({ onRestart, finalScores }: ResultPageProps) => {
+  //Test
+  console.log("最终得分:", finalScores);
+
   const metrics = [
     { label: 'Bitterness 苦度', val: '40%', desc: '点到为止的社交礼仪' },
     { label: 'Sweetness 甜感', val: '85%', desc: '糖分是快乐的合法来源' },
