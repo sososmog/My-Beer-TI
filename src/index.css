@@ -1,14 +1,44 @@
 @import "tailwindcss";
 
-/* 你的自定义样式依然写在下面 */
 @theme {
-  --color-beer-bg: #1F1F1F;
-  --color-beer-amber: #FFBF00;
+  /* 背景：更接近啤酒纸杯或米色的温润感 */
+  --color-beer-soft-bg: #fdfaf2; 
+  /* 啤酒主色：暖色调的金色 */
+  --color-beer-gold: #f5b016;
+  /* 辅助色：较浅的黄，用于卡片点缀 */
+  --color-beer-light: #fef4d1;
+  /* 文字色 */
+  --color-beer-text: #2d2926;
 }
 
 body {
-  background-color: var(--color-beer-bg);
-  color: var(--color-beer-amber);
+  background-color: var(--color-beer-soft-bg);
+  color: var(--color-beer-text);
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-family: "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+}
+
+/* 模拟大圆角卡片 */
+.beer-card {
+  border-radius: 2.5rem;
+  background: #ffffff;
+  box-shadow: 0 8px 30px rgba(245, 176, 22, 0.05);
+}
+
+/* 泡沫效果的进度条 */
+.foam-progress {
+  /* 从酒液黄过渡到白色的“泡沫”顶端 */
+  background: linear-gradient(to right, #f5b016 0%, #f5b016 80%, #ffffff 100%);
+  position: relative;
+  overflow: hidden;
+}
+
+/* 增加一点“气泡”微动感 */
+.foam-progress::after {
+  content: "";
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background-image: radial-gradient(circle, rgba(255,255,255,0.4) 1px, transparent 1px);
+  background-size: 10px 10px;
+  opacity: 0.3;
 }
