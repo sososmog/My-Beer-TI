@@ -1,26 +1,31 @@
 import { useState } from 'react';
-import { questions } from './data/questions';
+import { motion, AnimatePresence } from 'framer-motion';
+// 确保你已经创建了 src/data/questions.ts
+import { questions } from './data/questions'; 
+// 确保你已经创建了 src/components/ResultPage.tsx
 import { ResultPage } from './components/ResultPage';
 
 function App() {
+  // --- 状态管理 ---
   const [step, setStep] = useState<'home' | 'quiz' | 'result'>('home');
   const [currentIndex, setCurrentIndex] = useState(0);
   const [scores, setScores] = useState<Record<string, number>>({});
 
   const totalQuestions = questions.length;
-  // 进度条计算
   const progress = ((currentIndex + 1) / totalQuestions) * 100;
 
-  // 处理选项点击逻辑
+  // --- 逻辑处理 ---
+  
+  // 处理选项点击
   const handleOptionClick = (impact: Record<string, number>) => {
-    // 1. 累加分数
+    // 1. 累加得分
     const newScores = { ...scores };
     Object.entries(impact).forEach(([tag, value]) => {
       newScores[tag] = (newScores[tag] || 0) + value;
     });
     setScores(newScores);
 
-    // 2. 检查是否是最后一题
+    // 2. 推进题目或进入结果页
     if (currentIndex < totalQuestions - 1) {
       setCurrentIndex(prev => prev + 1);
     } else {
@@ -28,6 +33,7 @@ function App() {
     }
   };
 
+  // 重置测试
   const reset = () => {
     setStep('home');
     setCurrentIndex(0);
@@ -35,9 +41,9 @@ function App() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col bg-beer-soft-bg font-sans">
+    <div className="min-h-screen flex flex-col bg-beer-soft-bg font-sans selection:bg-beer-light">
       
-      {/* --- Topbar: 固定在顶部 --- */}
+      {/* --- 1. Topbar (固定置顶) --- */}
       <nav className="fixed top-0 left-0 right-0 h-16 bg-white/70 backdrop-blur-md border-b border-gray-100 flex items-center justify-between px-6 z-50">
         <div className="flex items-center gap-2">
           <div className="w-8 h-8 bg-beer-gold rounded-lg flex items-center justify-center shadow-sm">
@@ -46,31 +52,39 @@ function App() {
           <span className="font-bold text-gray-800 tracking-tight">Beer Identity</span>
         </div>
         
-        {/* 只要不在首页，就显示退出/重置按钮 */}
-        {step !== 'home' && (
-          <button 
-            onClick={reset}
-            className="text-[10px] font-bold text-gray-400 border border-gray-200 px-3 py-1 rounded-full hover:border-beer-gold hover:text-beer-gold transition-colors"
-          >
-            {step === 'result' ? 'RESTART' : 'QUIT'}
-          </button>
-        )}
+        <AnimatePresence>
+          {step !== 'home' && (
+            <motion.button 
+              initial={{ opacity: 0, x: 10 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: 10 }}
+              onClick={reset}
+              className="text-[10px] font-bold text-gray-400 border border-gray-200 px-3 py-1 rounded-full hover:border-beer-gold hover:text-beer-gold transition-colors"
+            >
+              {step === 'result' ? 'RESTART' : 'QUIT'}
+            </motion.button>
+          )}
+        </AnimatePresence>
       </nav>
 
-      {/* --- 主体内容区域 --- */}
+      {/* --- 2. 主体内容 --- */}
       <main className="flex-1 flex flex-col items-center px-4 pt-24 pb-6 max-w-lg mx-auto w-full">
         
-        {/* 1. 首页视图 */}
+        {/* --- 场景 A: 首页 --- */}
         {step === 'home' && (
-          <div className="flex-1 flex flex-col items-center justify-center text-center">
-            <div className="w-20 h-20 bg-beer-light rounded-full flex items-center justify-center mb-8 text-4xl shadow-inner">
+          <motion.div 
+            initial={{ opacity: 0 }} animate={{ opacity: 1 }}
+            className="flex-1 flex flex-col items-center justify-center text-center px-4"
+          >
+            <div className="w-24 h-24 bg-beer-light rounded-[2.5rem] flex items-center justify-center mb-10 text-5xl shadow-inner relative">
               🍺
+              <div className="absolute -top-2 -right-2 w-6 h-6 bg-beer-gold rounded-full border-4 border-beer-soft-bg" />
             </div>
-            <h1 className="text-4xl font-black text-gray-900 mb-4 tracking-tight">
-              探索你的<span className="text-beer-gold">精酿人格</span>
+            <h1 className="text-4xl font-black text-gray-900 mb-4 tracking-tight leading-tight">
+              探索你的<br /><span className="text-beer-gold">精酿品味基因</span>
             </h1>
             <p className="text-gray-400 text-sm mb-12 leading-relaxed max-w-[280px]">
-              基于 {totalQuestions} 个饮酒行为维度，<br />通过算法深度分析你的品味基因。
+              基于 {totalQuestions} 道深度感官题目，<br />揭示你在精酿世界的真实身份。
             </p>
             <button 
               onClick={() => setStep('quiz')}
@@ -78,33 +92,37 @@ function App() {
             >
               开始性格鉴定
             </button>
-          </div>
+          </motion.div>
         )}
 
-        {/* 2. 测试页视图 */}
+        {/* --- 场景 B: 测试页 --- */}
         {step === 'quiz' && (
           <div className="w-full space-y-4">
             {/* 进度条卡片 */}
             <div className="w-full beer-card p-6">
-              <div className="flex justify-between items-baseline mb-3">
+              <div className="flex justify-between items-baseline mb-3 px-2">
                 <span className="text-[10px] font-black text-gray-400 tracking-widest uppercase">
                   Progress <span className="text-beer-gold text-lg ml-1">{currentIndex + 1}</span> / {totalQuestions}
                 </span>
                 <span className="text-sm font-black text-beer-gold">{Math.round(progress)}%</span>
               </div>
               <div className="w-full h-3 bg-gray-100 rounded-full overflow-hidden">
-                <div 
+                <motion.div 
                   className="h-full foam-progress rounded-full" 
-                  style={{ width: `${progress}%` }} 
+                  animate={{ width: `${progress}%` }}
                 />
               </div>
             </div>
 
-            {/* 题目内容卡片 */}
-            <div className="w-full beer-card p-8 flex flex-col min-h-[420px]">
+            {/* 题目卡片 */}
+            <motion.div 
+              key={currentIndex}
+              initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }}
+              className="w-full beer-card p-8 flex flex-col min-h-[450px]"
+            >
               <div className="mb-8">
                 <span className="px-3 py-1 bg-beer-light text-beer-gold text-[10px] rounded-md font-bold uppercase tracking-wider">
-                  Sensory Question
+                  Question {currentIndex + 1}
                 </span>
               </div>
               
@@ -119,31 +137,31 @@ function App() {
                     onClick={() => handleOptionClick(opt.impact)}
                     className="group w-full flex items-center p-5 bg-gray-50/50 border border-gray-100 rounded-2xl hover:border-beer-gold hover:bg-white hover:shadow-md transition-all active:scale-[0.98]"
                   >
-                    <span className="w-8 h-8 flex items-center justify-center bg-white rounded-lg font-bold text-gray-400 mr-4 group-hover:bg-beer-gold group-hover:text-white transition-colors">
+                    <span className="w-8 h-8 flex items-center justify-center bg-white rounded-lg font-bold text-gray-400 mr-4 group-hover:bg-beer-gold group-hover:text-white transition-colors text-xs">
                       {String.fromCharCode(65 + i)}
                     </span>
-                    <span className="text-sm text-gray-600 font-medium group-hover:text-gray-800 text-left">
+                    <span className="text-sm text-gray-600 font-medium group-hover:text-gray-800 text-left leading-tight">
                       {opt.text}
                     </span>
                   </button>
                 ))}
               </div>
 
-              {/* 底部导航 */}
+              {/* 底部导航按钮 */}
               <div className="mt-auto">
                 <button 
                   disabled={currentIndex === 0}
                   onClick={() => setCurrentIndex(prev => prev - 1)}
-                  className="w-full py-4 bg-gray-50 border border-gray-100 rounded-2xl text-[10px] font-black text-gray-400 hover:text-gray-600 disabled:opacity-0 transition-all uppercase tracking-widest"
+                  className="w-full py-4 bg-gray-50 border border-gray-100 rounded-2xl text-[10px] font-black text-gray-400 hover:text-gray-600 disabled:opacity-0 transition-all uppercase tracking-widest active:scale-95"
                 >
-                  ← PREV QUESTION
+                  ← Previous Question
                 </button>
               </div>
-            </div>
+            </motion.div>
           </div>
         )}
 
-        {/* 3. 结果页视图 */}
+        {/* --- 场景 C: 结果页 --- */}
         {step === 'result' && (
           <ResultPage onRestart={reset} finalScores={scores} />
         )}
@@ -152,7 +170,7 @@ function App() {
         <footer className="w-full py-10 text-center">
           <div className="h-[1px] w-8 bg-gray-200 mx-auto mb-6" />
           <p className="text-gray-300 text-[9px] font-bold tracking-[0.2em] uppercase">
-            Beer Identity Project © 2026
+            Crafted for Enthusiasts · 2026
           </p>
         </footer>
       </main>
