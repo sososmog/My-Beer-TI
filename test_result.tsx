@@ -1,15 +1,5 @@
-export interface Option {
-  text: string;
-  impact: Record<string, number>;
-}
-
-export interface Question {
-  id: number;
-  text: string;
-  options: Option[];
-}
-
-export const questions: Question[] = [
+// 1. 先定义数据 (请把你那个文件里的数组粘贴到这里)
+const questions = [
   {
     id: 1,
     text: "你是否对某一种酒花特别喜爱/厌恶？",
@@ -104,7 +94,7 @@ export const questions: Question[] = [
     text: "如果你中了诅咒，这一辈子只能喝一款酒，你会选择喝什么？",
     options: [
       { text: "稳定又清爽的拉格/皮尔森", impact: { G: 2.5 } },
-      { text: "充满香气的IPA", impact: { H: 4.0 } },
+      { text: "充满香气的IPA", impact: { H: 3.5 } },
       { text: "复杂厚重的世涛", impact: { A: 1.0 } },
       { text: "优雅明亮的酸", impact: { M: 3.5 } },
       { text: "甜美的果泥", impact: { S: 3.0 } }
@@ -248,3 +238,60 @@ export const questions: Question[] = [
     ]
   }
 ];
+
+// 2. 判定逻辑
+const determineResult = (scores) => {
+  const dScore = scores['D'] || 0;
+  const iScore = scores['I'] || 0;
+  
+  const sorted = Object.entries(scores)
+    .filter(([tag]) => tag !== 'W')
+    .sort((a, b) => b[1] - a[1]);
+
+  const topTag = sorted[0]?.[0] || 'G';
+
+  const BEER_IDENTITIES = {
+    G: "拉格守门员 / 传统派", A: "过桶主义者", Y1: "下水道赞助商", H: "浑浊的神",
+    M: "陈醋收藏家", S: "甜水爱好者", DI: "酒蒙子", U: "Untappd分奴",
+    B: "酒花本花", Y2: "液体蛋糕er", E: "老懂哥", R: "溢价受害者",
+    Z: "颜值协会会长", D: "大卫·戴", I: "最硬の肝", Y3: "忍者",
+    N: "酒单收割机", T: "社交之王", L: "Taproom背景板", V: "精酿pdd大亨"
+  };
+
+  if ((topTag === 'D' || topTag === 'I') && (dScore > 0 && iScore > 0)) {
+    return "酒蒙子";
+  }
+
+  return BEER_IDENTITIES[topTag] || "传统派";
+};
+
+// 3. 执行 1000 次模拟测试
+const testDistribution = (iterations = 1000) => {
+  const stats = {};
+  
+  for (let i = 0; i < iterations; i++) {
+    let currentScores = {};
+    questions.forEach(q => {
+      // 模拟随机选一个选项
+      const randomOption = q.options[Math.floor(Math.random() * q.options.length)];
+      Object.entries(randomOption.impact).forEach(([tag, value]) => {
+        currentScores[tag] = (currentScores[tag] || 0) + value;
+      });
+    });
+
+    const resultTitle = determineResult(currentScores);
+    stats[resultTitle] = (stats[resultTitle] || 0) + 1;
+  }
+
+  const finalReport = Object.entries(stats)
+    .map(([name, count]) => ({
+      "人格名称": name,
+      "出现次数": count,
+      "预期占比": ((count / iterations) * 100).toFixed(2) + "%"
+    }))
+    .sort((a, b) => b["出现次数"] - a["出现次数"]);
+
+  console.table(finalReport);
+};
+
+testDistribution(1000);
