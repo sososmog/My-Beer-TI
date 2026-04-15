@@ -8,7 +8,7 @@ interface AnalysisBlockProps {
 export const AnalysisBlock = ({ scores }: AnalysisBlockProps) => {
   const dimensions = useMemo(() => {
     // 辅助函数：计算 A 占 (A+B) 的百分比，保底 50%
-    const calcRatio = (sideA: number[], sideB: number[]) => {
+    const calcRatio = (sideA: string[], sideB: string[]) => {
       const scoreA = sideA.reduce((sum, tag) => sum + (scores[tag] || 0), 0);
       const scoreB = sideB.reduce((sum, tag) => sum + (scores[tag] || 0), 0);
       if (scoreA === 0 && scoreB === 0) return 50;

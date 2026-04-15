@@ -66,7 +66,7 @@ export const ShareBlock = ({ result }: ShareBlockProps) => {
           {/* 1. 图片放在上方 */}
           <div className="w-full aspect-square bg-gray-50 rounded-2xl overflow-hidden border border-gray-100 relative shadow-inner mb-8">
              <div className="absolute top-3 left-3 text-[7px] text-gray-300 uppercase font-black tracking-[0.2em]">
-               Identity Type
+               MyBeerTI
              </div>
              <img src={result.img} className="w-full h-full object-cover" alt="result" />
           </div>
