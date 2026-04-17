@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { questions } from './data/questions'; 
 import { ResultPage } from './components/ResultPage';
+import posthog from 'posthog-js';
 
 function shuffle<T>(arr: T[]): T[] {
   const a = [...arr];
@@ -31,9 +32,21 @@ function App() {
       [currentIndex]: optionIndex
     }));
 
+    // --- 新增：PostHog 行为打点 ---
+    // 记录哪一题被点击了，以及选的是哪个选项
+    posthog.capture('option_selected', {
+      question_index: currentIndex + 1, // 第几题
+      question_text: questions[currentIndex].text, // 题目内容
+      selected_option_index: optionIndex, // 选了第几个选项
+      selected_option_text: questions[currentIndex].options[optionIndex].text // 选项内容
+    });
+
     // 2. 瞬间跳转，不留残影
     if (currentIndex < totalQuestions - 1) {
       setCurrentIndex(prev => prev + 1);
+    } else {
+      // 如果是最后一题，可以额外打一个“完成全部题目”的终点包
+      posthog.capture('quiz_all_steps_completed');
     }
   };
 
