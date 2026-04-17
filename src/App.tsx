@@ -1,7 +1,8 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { questions } from './data/questions'; 
+import { questions } from './data/questions';
 import { ResultPage } from './components/ResultPage';
+import { AllPersonalitiesModal } from './components/AllPersonalitiesModal';
 import posthog from 'posthog-js';
 
 function shuffle<T>(arr: T[]): T[] {
@@ -19,6 +20,7 @@ function App() {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [userChoices, setUserChoices] = useState<Record<number, number>>({});
   const [shuffledQuestions, setShuffledQuestions] = useState(questions);
+  const [showAllPersonalities, setShowAllPersonalities] = useState(false);
 
   const totalQuestions = shuffledQuestions.length;
   const progress = ((currentIndex + 1) / totalQuestions) * 100;
@@ -81,6 +83,12 @@ function App() {
         </div>
         
         <div className="flex items-center gap-3">
+          <button
+            onClick={() => setShowAllPersonalities(true)}
+            className="text-[10px] font-bold text-gray-400 border border-gray-200 px-3 py-1 rounded-full hover:border-beer-gold hover:text-beer-gold transition-colors"
+          >
+            人格图鉴
+          </button>
           <a
             href="https://github.com/sososmog/My-Beer-TI"
             target="_blank"
@@ -260,6 +268,11 @@ function App() {
           </p>
         </footer>
       </main>
+
+      <AllPersonalitiesModal
+        isOpen={showAllPersonalities}
+        onClose={() => setShowAllPersonalities(false)}
+      />
     </div>
   );
 }

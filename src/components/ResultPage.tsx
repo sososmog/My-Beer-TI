@@ -1,6 +1,9 @@
+import { useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { ShareBlock } from './ShareBlock'; 
+import { ShareBlock } from './ShareBlock';
 import { AnalysisBlock } from './AnalysisBlock';
+import { computeTopTag } from '../data/personalities';
+import { recordResult } from '../lib/resultStats';
 
 
 interface ResultPageProps {
@@ -135,6 +138,11 @@ export const ResultPage = ({ onRestart, finalScores }: ResultPageProps) => {
   };
 
   const result = getTopResult();
+
+  useEffect(() => {
+    recordResult(computeTopTag(finalScores));
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <motion.div 

@@ -5,6 +5,7 @@ import copy from 'copy-to-clipboard';
 
 interface ShareBlockProps {
   result: { title: string; img: string; desc: string };
+  scores?: Record<string, number>;
 }
 
 export const ShareBlock = ({ result }: ShareBlockProps) => {
