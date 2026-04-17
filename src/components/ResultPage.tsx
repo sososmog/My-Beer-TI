@@ -120,8 +120,14 @@ export const ResultPage = ({ onRestart, finalScores }: ResultPageProps) => {
     const sorted = Object.entries(finalScores)
       .filter(([tag]) => tag !== 'W')
       .sort((a, b) => b[1] - a[1]);
-    const topTag = sorted[0]?.[0] || 'G';
+    const topTwo = sorted.slice(0, 2).map(([tag]) => tag);
 
+    // 特殊标签：只要进入前两名即优先触发
+    if (topTwo.includes('Y1')) return BEER_IDENTITIES['Y1'];
+    if (topTwo.includes('Y2')) return BEER_IDENTITIES['Y2'];
+    if (topTwo.includes('Y3')) return BEER_IDENTITIES['Y3'];
+
+    const topTag = sorted[0]?.[0] || 'G';
     if ((topTag === 'D' || topTag === 'I') && (dScore > 0 && iScore > 0)) {
       return BEER_IDENTITIES['DI'];
     }
