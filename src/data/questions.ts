@@ -22,7 +22,7 @@ export const questions: Question[] = [
     id: 2,
     text: "你买了一罐需要预售并且配货的酒，等待了一个月，终于到手，但却发现有点难喝，但又没有难喝到完全喝不下去，你会把它倒掉，还是忍忍继续喝完？",
     options: [
-      { text: "直接进入下水道", impact: { E: 0.4, Y1: 8.5 } },
+      { text: "直接进入下水道", impact: { E: 0.4, Y1: 7.0 } },
       { text: "再喝几口等等看，也许等会儿会有变化呢？", impact: { V: 0.6 } },
       { text: "我的钱不是钱啊？绝不浪费，保证喝完！", impact: { V: 0.6, Y3: 7.0 } }
     ]
@@ -31,7 +31,7 @@ export const questions: Question[] = [
     id: 3,
     text: "你是否会因为某家酒厂的酒标设计/酒款名称符合你的审美而剁手？",
     options: [
-      { text: "是。酒标/酒名设计也是啤酒的一部分，直接下单！", impact: { Z: 7.5 } },
+      { text: "是。酒标/酒名设计也是啤酒的一部分，直接下单！", impact: { Z: 7.0 } },
       { text: "否。我买的是罐子里的酒又不是罐子…", impact: { V: 0.6 } }
     ]
   },
@@ -39,9 +39,9 @@ export const questions: Question[] = [
     id: 4,
     text: "你认为啤酒应该是什么颜色的？",
     options: [
-      { text: "透亮的黄色", impact: { G: 2.5 } },
-      { text: "浑浊的鹅黄色", impact: { H: 4.0 } },
-      { text: "深邃的黑色", impact: { A: 1.0 } },
+      { text: "透亮的黄色", impact: { G: 3.5 } },
+      { text: "浑浊的鹅黄色", impact: { H: 7.0 } },
+      { text: "深邃的黑色", impact: { A: 3.5 } },
       { text: "高雅的琥珀色", impact: { M: 2.0 } },
       { text: "I don't car", impact: { W: 0.9 } }
     ]
@@ -51,7 +51,7 @@ export const questions: Question[] = [
     text: "你走进一家taproom，上面有一款最近才上枪的新酒看起来非常对你的胃口，今晚你只能喝一杯，但你查到Untappd上这款的分比你想象中低的多，你会喝这款吗？",
     options: [
       { text: "群众的眼睛是雪亮的，大概率不好喝，还是算了吧", impact: { U: 4.0 } },
-      { text: "没人比我更懂酒。我喜欢哪个喝哪个！", impact: { E: 2.0 } },
+      { text: "没人比我更懂酒。我喜欢哪个喝哪个！", impact: { E: 1.5 } },
       { text: "什么是Untappd？没听过", impact: { W: 0.9 } }
     ]
   },
@@ -86,8 +86,8 @@ export const questions: Question[] = [
     text: "你在taproom喝酒，今晚的预算只够买一杯了，酒单上有一款你喝过的还不错的生啤，还有一款名气很大刚刚签了进口商的生啤，第一次引进国内，你会选择哪款？",
     options: [
       { text: "喝过的谁还再喝啊，我要试试新的", impact: { N: 3.5 } },
-      { text: "新的说不定踩雷，我还是求稳喝杯好喝的吧", impact: { G: 1.5 } },
-      { text: "都快没钱了还喝啊？我回家了", impact: { V: 0.6 } }
+      { text: "新的说不定踩雷，我还是求稳喝杯好喝的吧", impact: { G: 2.0 } },
+      { text: "都快没钱了还喝啊？我回家了", impact: { V: 1.5 } }
     ]
   },
   {
@@ -103,9 +103,9 @@ export const questions: Question[] = [
     id: 11,
     text: "如果你中了诅咒，这一辈子只能喝一款酒，你会选择喝什么？",
     options: [
-      { text: "稳定又清爽的拉格/皮尔森", impact: { G: 2.5 } },
-      { text: "充满香气的IPA", impact: { H: 4.0 } },
-      { text: "复杂厚重的世涛", impact: { A: 1.0 } },
+      { text: "稳定又清爽的拉格/皮尔森", impact: { G: 3.5 } },
+      { text: "充满香气的IPA", impact: { H: 7.0 } },
+      { text: "复杂厚重的世涛", impact: { A: 3.5 } },
       { text: "优雅明亮的酸", impact: { M: 3.5 } },
       { text: "甜美的果泥", impact: { S: 3.0 } }
     ]
@@ -114,7 +114,7 @@ export const questions: Question[] = [
     id: 12,
     text: "你是否愿意加价/搭货购买一款号称非常好喝非常稀缺的IPA？",
     options: [
-      { text: "没必要，溢价就是智商税，好喝的多得是", impact: { V: 0.6 } },
+      { text: "没必要，溢价就是智商税，好喝的多得是", impact: { V: 3.5 } },
       { text: "我愿意，体验无法用金钱衡量", impact: { R: 2.0 } }
     ]
   },
@@ -122,7 +122,7 @@ export const questions: Question[] = [
     id: 13,
     text: "如果一款酒的IBU为100，你会选择喝吗？",
     options: [
-      { text: "啤酒就应该是苦的！我准备好了", impact: { B: 9.0 } },
+      { text: "啤酒就应该是苦的！我准备好了", impact: { B: 7.3 } },
       { text: "我不是m，我不想受虐，还是喝点好喝的吧", impact: { S: 2.0 } },
       { text: "IBU是什么？", impact: { W: 0.9 } }
     ]
@@ -133,7 +133,7 @@ export const questions: Question[] = [
     options: [
       { text: "8度以下吧。淡淡的就会顺顺的", impact: { T: 1.0 } },
       { text: "8度以上但别太高吧。Double刚好，Single太淡，平衡一点刚好", impact: { E: 0.4 } },
-      { text: "三倍四倍才够猛！有点度数才够爆炸！", impact: { D: 1.0, I: 8.0 } }
+      { text: "三倍四倍才够猛！有点度数才够爆炸！", impact: { D: 1.0, I: 5.0 } }
     ]
   },
   {
@@ -149,7 +149,7 @@ export const questions: Question[] = [
     id: 16,
     text: "你对于大蒜增味啤酒怎么看?",
     options: [
-      { text: "啤酒里出现这玩意是倒反天罡，应该判酿酒师几年", impact: { G: 1.25 } },
+      { text: "啤酒里出现这玩意是倒反天罡，应该判酿酒师几年", impact: { G: 1.75 } },
       { text: "不管加什么，只要酿的好喝就行了", impact: { E: 1.0 } },
       { text: "你怎么知道我喜欢大蒜的？", impact: { D: 1.0 } }
     ]
@@ -167,7 +167,7 @@ export const questions: Question[] = [
     text: "你觉得桶味对于世涛的影响有多大？",
     options: [
       { text: "世涛就要过桶！不过桶的世涛谁喝啊", impact: { A: 1.0 } },
-      { text: "影响不大吧，甜品世涛不过桶也很好喝", impact: { S: 2.0, Y2: 1.0 } },
+      { text: "影响不大吧，甜品世涛不过桶也很好喝", impact: { S: 2.0, Y2: 3.5 } },
       { text: "什么是桶味？", impact: { D: 1.0 } }
     ]
   },
@@ -175,15 +175,15 @@ export const questions: Question[] = [
     id: 19,
     text: "你怎么看待加入香草/巧克力的“液体蛋糕”帝国世涛？",
     options: [
-      { text: "这也太腻了，我不喜欢", impact: { G: 1.25 } },
-      { text: "我喜欢甜品，很甜的世涛也会很好喝", impact: { S: 3.0, Y2: 1.0 } }
+      { text: "这也太腻了，我不喜欢", impact: { G: 1.75 } },
+      { text: "我喜欢甜品，很甜的世涛也会很好喝", impact: { S: 3.0, Y2: 3.5 } }
     ]
   },
   {
     id: 20,
     text: "当你拿起一罐啤酒时，你会去查询它的酒花品种吗？",
     options: [
-      { text: "会。我喜欢研究酒花", impact: { E: 2.0 } },
+      { text: "会。我喜欢研究酒花", impact: { E: 1.5 } },
       { text: "不会。好喝就行了，酒花组合不重要", impact: { W: 0.9 } }
     ]
   },
@@ -218,7 +218,7 @@ export const questions: Question[] = [
     options: [
       { text: "这酒坏了吧", impact: { G: 1.25 } },
       { text: "离我远点", impact: { D: 1.0 } },
-      { text: "这是时间的艺术，是桶陈的吗？", impact: { M: 2.0, A: 1.0, E: 0.5 } }
+      { text: "这是时间的艺术，是桶陈的吗？", impact: { M: 2.0, A: 2.0, E: 0.5 } }
     ]
   },
   {
@@ -226,7 +226,7 @@ export const questions: Question[] = [
     text: "关于混酿(Blending)的概念，如将不同年份的兰比克混合，你有什么看法？",
     options: [
       { text: "太复杂了bro，我只在乎最后整出来好不好喝", impact: { W: 0.9 } },
-      { text: "这也太能体现酿酒师的水平了，比例就是艺术", impact: { M: 2.0, A: 1.0, E: 2.0 } }
+      { text: "这也太能体现酿酒师的水平了，比例就是艺术", impact: { M: 2.0, A: 2.0, E: 2.0 } }
     ]
   },
   {
