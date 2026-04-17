@@ -91,12 +91,17 @@ export const ShareBlock = ({ result }: ShareBlockProps) => {
               <div className="text-[8px] text-gray-400 font-bold uppercase tracking-widest mb-1">
                 Scan to find yours
               </div>
-              <div className="text-[14px] font-black text-gray-800 tracking-tighter font-mono">
-                BEER-TI.DEV
+              {/* 这里改成了大写的展示域名，更有品牌感 */}
+              <div className="text-[14px] font-black text-gray-800 tracking-tighter font-mono uppercase">
+                MY-BEER-TI.VERCEL.APP
               </div>
             </div>
             <div className="p-1.5 bg-white border border-gray-100 rounded-lg shadow-sm">
-              <QRCodeCanvas value={window.location.href} size={52} />
+              {/* --- 👇 二维码跳转目标修改处 --- */}
+              <QRCodeCanvas 
+                value="https://my-beer-ti.vercel.app" 
+                size={52} 
+              />
             </div>
           </div>
         </div>
