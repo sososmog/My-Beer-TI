@@ -92,13 +92,13 @@ export const ShareBlock = ({ result }: ShareBlockProps) => {
               </div>
               {/* 这里改成了大写的展示域名，更有品牌感 */}
               <div className="text-[14px] font-black text-gray-800 tracking-tighter font-mono uppercase">
-                MY-BEER-TI.VERCEL.APP
+                SOSOSMOG.COM
               </div>
             </div>
             <div className="p-1.5 bg-white border border-gray-100 rounded-lg shadow-sm">
               {/* --- 👇 二维码跳转目标修改处 --- */}
               <QRCodeCanvas 
-                value="https://my-beer-ti.vercel.app" 
+                value="https://sososmog.com" 
                 size={52} 
               />
             </div>
