@@ -13,6 +13,7 @@
     "copy-to-clipboard": "^3.3.3",
     "firebase": "^12.12.0",
     "framer-motion": "^12.38.0",
+    "html-to-image": "^1.11.13",
     "html2canvas": "^1.4.1",
     "posthog-js": "^1.369.2",
     "qrcode.react": "^4.2.0",

@@ -1,5 +1,5 @@
 import { useRef } from 'react';
-import html2canvas from 'html2canvas';
+import { toPng } from 'html-to-image';
 import { QRCodeCanvas } from 'qrcode.react';
 import copy from 'copy-to-clipboard';
 
@@ -15,30 +15,13 @@ export const ShareBlock = ({ result }: ShareBlockProps) => {
   const saveImage = async () => {
     if (!posterRef.current) return;
     try {
-      // 等待容器内所有图片加载完毕再截图
-      const imgs = posterRef.current.querySelectorAll('img');
-      await Promise.all(
-        Array.from(imgs).map(
-          img =>
-            img.complete
-              ? Promise.resolve()
-              : new Promise(resolve => {
-                  img.onload = resolve;
-                  img.onerror = resolve;
-                })
-        )
-      );
-
-      const canvas = await html2canvas(posterRef.current, {
-        scale: 3,
-        useCORS: true,
-        allowTaint: true,
+      const dataUrl = await toPng(posterRef.current, {
+        pixelRatio: 3,
         backgroundColor: '#ffffff',
-        logging: false,
       });
       const link = document.createElement('a');
       link.download = `Beer-ID-${result.title}.png`;
-      link.href = canvas.toDataURL('image/png');
+      link.href = dataUrl;
       link.click();
     } catch (err) {
       console.error('生成图片失败:', err);
