@@ -40,6 +40,12 @@ export async function recordResult(tag: string): Promise<void> {
     } else {
       await setDoc(ref, { [tag]: 1 });
     }
+    // 写入后同步本地缓存，避免图鉴仍显示旧数据
+    if (statsCache) {
+      statsCache[tag] = (statsCache[tag] || 0) + 1;
+    } else {
+      statsCache = { [tag]: 1 };
+    }
   } catch (e) {
     console.warn('[resultStats] recordResult failed:', e);
   }
