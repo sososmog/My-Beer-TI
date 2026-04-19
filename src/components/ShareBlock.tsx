@@ -111,7 +111,7 @@ export const ShareBlock = ({ result }: ShareBlockProps) => {
             晒出你的<br />精酿人格名片
           </h2>
           <p className="text-gray-500 text-sm leading-relaxed mb-6">
-            去掉复杂的维度数据，让你的形象更加纯粹、突出。这张图更适合直接发朋友圈或小红书。
+            快和你的朋友一起来测试自己的精酿人格吧！测试仅供娱乐。
           </p>
         </div>
 
