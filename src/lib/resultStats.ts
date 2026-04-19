@@ -18,8 +18,8 @@ export async function getAllStats(): Promise<Record<string, number>> {
   try {
     const ref = doc(db, COLLECTION, DOCUMENT);
     const snap = await getDoc(ref);
-    statsCache = snap.exists() ? (snap.data() as Record<string, number>) : {};
-    return statsCache;
+    statsCache = snap.exists() ? (snap.data() as Record<string, number>) : null;
+    return statsCache ?? {};
   } catch (e) {
     console.warn('[resultStats] getAllStats failed:', e);
     return {};
