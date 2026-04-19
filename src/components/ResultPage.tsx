@@ -170,7 +170,7 @@ export const ResultPage = ({ onRestart, finalScores }: ResultPageProps) => {
             <img 
               src={result.img} 
               alt={result.title} 
-              className="w-full h-full object-cover rounded-3xl" 
+              className="w-full h-full object-contain rounded-3xl"
             />
           </div>
 
