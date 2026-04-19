@@ -10,6 +10,26 @@ import { db } from './firebase';
 const COLLECTION = 'stats';
 const DOCUMENT = 'results';
 
+let statsCache: Record<string, number> | null = null;
+
+export async function getAllStats(): Promise<Record<string, number>> {
+  if (statsCache) return statsCache;
+  if (!db) return {};
+  try {
+    const ref = doc(db, COLLECTION, DOCUMENT);
+    const snap = await getDoc(ref);
+    statsCache = snap.exists() ? (snap.data() as Record<string, number>) : {};
+    return statsCache;
+  } catch (e) {
+    console.warn('[resultStats] getAllStats failed:', e);
+    return {};
+  }
+}
+
+export function prefetchStats(): void {
+  getAllStats();
+}
+
 export async function recordResult(tag: string): Promise<void> {
   if (!db) return;
   try {
@@ -25,14 +45,3 @@ export async function recordResult(tag: string): Promise<void> {
   }
 }
 
-export async function getAllStats(): Promise<Record<string, number>> {
-  if (!db) return {};
-  try {
-    const ref = doc(db, COLLECTION, DOCUMENT);
-    const snap = await getDoc(ref);
-    return snap.exists() ? (snap.data() as Record<string, number>) : {};
-  } catch (e) {
-    console.warn('[resultStats] getAllStats failed:', e);
-    return {};
-  }
-}

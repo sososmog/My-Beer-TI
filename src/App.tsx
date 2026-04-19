@@ -1,8 +1,9 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { questions } from './data/questions';
 import { ResultPage } from './components/ResultPage';
 import { AllPersonalitiesModal } from './components/AllPersonalitiesModal';
+import { prefetchStats } from './lib/resultStats';
 import posthog from 'posthog-js';
 
 function shuffle<T>(arr: T[]): T[] {
@@ -21,6 +22,8 @@ function App() {
   const [userChoices, setUserChoices] = useState<Record<number, number>>({});
   const [shuffledQuestions, setShuffledQuestions] = useState(questions);
   const [showAllPersonalities, setShowAllPersonalities] = useState(false);
+
+  useEffect(() => { prefetchStats(); }, []);
 
   const totalQuestions = shuffledQuestions.length;
   const progress = ((currentIndex + 1) / totalQuestions) * 100;
