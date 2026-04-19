@@ -15,10 +15,26 @@ export const ShareBlock = ({ result }: ShareBlockProps) => {
   const saveImage = async () => {
     if (!posterRef.current) return;
     try {
+      // 等待容器内所有图片加载完毕再截图
+      const imgs = posterRef.current.querySelectorAll('img');
+      await Promise.all(
+        Array.from(imgs).map(
+          img =>
+            img.complete
+              ? Promise.resolve()
+              : new Promise(resolve => {
+                  img.onload = resolve;
+                  img.onerror = resolve;
+                })
+        )
+      );
+
       const canvas = await html2canvas(posterRef.current, {
-        scale: 3, // 提升至3倍采样，保证文字锐利
+        scale: 3,
         useCORS: true,
+        allowTaint: true,
         backgroundColor: '#ffffff',
+        logging: false,
       });
       const link = document.createElement('a');
       link.download = `Beer-ID-${result.title}.png`;
@@ -32,7 +48,7 @@ export const ShareBlock = ({ result }: ShareBlockProps) => {
 
   // 2. 复制文案
   const copyText = () => {
-    const text = `【精酿人格鉴定】我是“${result.title}”，快来解锁你的精酿基因！`;
+    const text = `【精酿人格鉴定】我是“${result.title}”，快来my-beer-ti.vercel.app解锁你的精酿基因！`;
     copy(text);
     alert('分享文案已复制！');
   };

@@ -1,9 +1,12 @@
 import { useEffect } from 'react';
 import { motion } from 'framer-motion';
+import copy from 'copy-to-clipboard';
 import { ShareBlock } from './ShareBlock';
 import { AnalysisBlock } from './AnalysisBlock';
 import { computeTopTag } from '../data/personalities';
 import { recordResult } from '../lib/resultStats';
+
+
 
 
 interface ResultPageProps {
@@ -139,6 +142,11 @@ export const ResultPage = ({ onRestart, finalScores }: ResultPageProps) => {
 
   const result = getTopResult();
 
+  const copyText = () => {
+    copy(`【精酿人格鉴定】我是"${result.title}"，快来my-beer-ti.vercel.app解锁你的精酿基因！`);
+    alert('分享文案已复制！');
+  };
+
   useEffect(() => {
     recordResult(computeTopTag(finalScores));
   // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -185,7 +193,7 @@ export const ResultPage = ({ onRestart, finalScores }: ResultPageProps) => {
 
       {/* 按钮区 */}
       <div className="pt-6 space-y-3">
-        <button className="w-full py-5 bg-beer-gold text-white rounded-[2rem] font-bold text-lg shadow-xl shadow-beer-gold/20 active:scale-95 transition-all">
+        <button onClick={copyText} className="w-full py-5 bg-beer-gold text-white rounded-[2rem] font-bold text-lg shadow-xl shadow-beer-gold/20 active:scale-95 transition-all">
           分享这张身份卡
         </button>
         <button onClick={onRestart} className="w-full py-5 bg-white border border-gray-100 text-gray-400 rounded-[2rem] font-bold text-sm">
