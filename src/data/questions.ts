@@ -51,7 +51,7 @@ export const questions: Question[] = [
     text: "你走进一家taproom，上面有一款最近才上枪的新酒看起来非常对你的胃口，今晚你只能喝一杯，但你查到Untappd上这款的分比你想象中低的多，你会喝这款吗？",
     options: [
       { text: "群众的眼睛是雪亮的，大概率不好喝，还是算了吧", impact: { U: 4.0 } },
-      { text: "没人比我更懂酒。我喜欢哪个喝哪个！", impact: { E: 1.5 } },
+      { text: "没人比我更懂酒。我喜欢哪个喝哪个！", impact: { E: 1.4 } },
       { text: "什么是Untappd？没听过", impact: { W: 0.9 } }
     ]
   },
@@ -133,7 +133,7 @@ export const questions: Question[] = [
     options: [
       { text: "8度以下吧。淡淡的就会顺顺的", impact: { T: 1.0 } },
       { text: "8度以上但别太高吧。Double刚好，Single太淡，平衡一点刚好", impact: { E: 0.4 } },
-      { text: "三倍四倍才够猛！有点度数才够爆炸！", impact: { D: 1.0, I: 5.0 } }
+      { text: "三倍四倍才够猛！有点度数才够爆炸！", impact: { I: 7.0 } }
     ]
   },
   {
@@ -183,7 +183,7 @@ export const questions: Question[] = [
     id: 20,
     text: "当你拿起一罐啤酒时，你会去查询它的酒花品种吗？",
     options: [
-      { text: "会。我喜欢研究酒花", impact: { E: 1.5 } },
+      { text: "会。我喜欢研究酒花", impact: { E: 1.4 } },
       { text: "不会。好喝就行了，酒花组合不重要", impact: { W: 0.9 } }
     ]
   },
@@ -192,7 +192,7 @@ export const questions: Question[] = [
     text: "有人说酒体里有轻微的臭鼬味，你会怎么看？",
     options: [
       { text: "你在这装什么b呢？", impact: { W: 0.9 } },
-      { text: "查查什么是臭鼬味，自己尝一尝", impact: { E: 1.5 } },
+      { text: "查查什么是臭鼬味，自己尝一尝", impact: { E: 1.4 } },
       { text: "动物我不懂，我喝着没怪味就行", impact: { D: 1.0 } }
     ]
   },
@@ -226,7 +226,7 @@ export const questions: Question[] = [
     text: "关于混酿(Blending)的概念，如将不同年份的兰比克混合，你有什么看法？",
     options: [
       { text: "太复杂了bro，我只在乎最后整出来好不好喝", impact: { W: 0.9 } },
-      { text: "这也太能体现酿酒师的水平了，比例就是艺术", impact: { M: 2.0, A: 2.0, E: 2.0 } }
+      { text: "这也太能体现酿酒师的水平了，比例就是艺术", impact: { M: 2.0, A: 2.0, E: 1.8 } }
     ]
   },
   {

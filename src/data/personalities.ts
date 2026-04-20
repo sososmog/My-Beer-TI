@@ -129,19 +129,17 @@ export const BEER_IDENTITIES: Record<string, BeerIdentity> = {
 };
 
 export function computeTopTag(finalScores: Record<string, number>): string {
-  const dScore = finalScores['D'] || 0;
-  const iScore = finalScores['I'] || 0;
   const sorted = Object.entries(finalScores)
     .filter(([tag]) => tag !== 'W')
     .sort((a, b) => b[1] - a[1]);
   const topTwo = sorted.slice(0, 2).map(([tag]) => tag);
-
-  if (topTwo.includes('Y1')) return 'Y1';
-  if (topTwo.includes('Y2')) return 'Y2';
-  if (topTwo.includes('Y3')) return 'Y3';
-
   const topTag = sorted[0]?.[0] || 'G';
-  if ((topTag === 'D' || topTag === 'I') && dScore > 0 && iScore > 0) return 'DI';
+
+  if (topTag === 'Y1') return 'Y1';
+  if (topTag === 'Y3') return 'Y3';
+  if (topTwo.includes('Y2')) return 'Y2';
+  if (topTwo.includes('D') && topTwo.includes('I')) return 'DI';
+
   return topTag;
 }
 
